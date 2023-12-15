@@ -8,6 +8,7 @@ class NavBarSimple extends React.Component {
         this.state = {
             status:"login",
             message:"Hello Guest!",
+            test: "testState",
         };
     }
 
@@ -22,11 +23,13 @@ class NavBarSimple extends React.Component {
 
             }
 
+        },()=>{
+            console.log(this.state.status)
+            console.log(this.state.message)
         })
 
         
-    console.log(this.state.status)
-        console.log(this.state.message)
+
     }
 
     render() {

@@ -7,7 +7,7 @@ function App() {
     <div className={css.App}>
       {/* Add your components here */}
       <Sidebar />
-      <NavBarSimple />
+      <NavBarSimple testprop = "testing" />
     </div>
   );
 }
