@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import css from "./css/NavBarSimple.module.css"
+import NavBarChild from './NavBarChild'
 
 export class NavBarForm extends Component {
 
@@ -12,34 +13,19 @@ export class NavBarForm extends Component {
     }
 
     handleClick = () => {
-        this.setState({
-            isLoggedin: false,
+        this.setState((prevState) => {
+          return{
+            isLoggedin: prevState.isLoggedin === true? false : true,
+          }
+            
         })
     }
 
   render() {
     return (
-      <div className = {css.NavBar}>
-        <h1>My Gallery</h1>
-        {this.state.isLoggedin? (
-          <div>
-            <button onClick={this.handleClick}>Login</button>
-          </div>
-        ):
-        (
-        <div>
-          <form>
-            <label for id='username' name='username'>Username</label>
-            <input type='text' id='username' name='username'></input>
-            <label for id='passord' name='password'>Password</label>
-            <input type='password' id='password' name='password'></input>
-            <button onClick={this.state.handleClick}>Submit</button>
-          </form>
-        </div>
-          
-          )}
-        
-      </div>
+      <NavBarChild 
+      isLoggedin={this.state.isLoggedin} 
+      handleClick={this.handleClick}/>
     )
   }
 }
