@@ -9,7 +9,8 @@ export class Content extends Component {
         super(props);
 
         this.state = {
-            isLoaded: false
+            isLoaded: false,
+            posts: []
         };
     }
 
@@ -17,9 +18,19 @@ export class Content extends Component {
 
         setTimeout(() => {
             this.setState({
-                isLoaded: true
+                isLoaded: true,
+                posts: savedPosts
             });
         }, 2000);
+    };
+    handleSearch = (event) => {
+        const name = event.target.value.toLowerCase();
+        const filteredPosts = savedPosts.filter((post) => {
+            return post.name.toLowerCase().includes(name);
+        });
+        this.setState({
+            posts: filteredPosts
+        });
     };
 
 
@@ -28,21 +39,25 @@ export class Content extends Component {
             <div className={css.Content}>
                 <div className={css.TitleBar}>
                     <h1>My Photos</h1>
+                    <form>
+                        <label htmlFor='searchInput'>Search:</label>
+                        <input
+                            type='text'
+                            id='searchInput'
+                            name='search'
+                            onChange={this.handleSearch}
+                        />
+                        <p>Posts found: {this.state.posts.length}</p>
+                    </form>
                 </div>
                 <div className={css.SearchResults}>
-                    {savedPosts.map(post => {
-                        return (
-                            <div>
-                                {this.state.isLoaded && <PostItem key={post.title} post={post} />}
-                                {this.state.isLoaded && !<Loader key={1} />}
-
-                            </div>
-                        );
-                    })}
-
+                    {
+                        this.state.isLoaded ?
+                            <PostItem savedPosts={this.state.posts} />
+                            : <Loader />
+                    }
 
                 </div>
-                <Loader />
             </div>
         );
     }

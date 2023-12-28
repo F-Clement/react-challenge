@@ -5,15 +5,15 @@ import NavBarForm from './components/NavBarForm';
 import Content from './components/Content';
 
 function App() {
-  return (
-    <div className={css.App}>
-      {/* Add your components here */}
-      {/* <Sidebar />
-      <NavBarSimple testprop = "testing" /> */}
-      {/* <NavBarForm /> */}
-      <Content />
-    </div>
-  );
+    return (
+        <div className={css.App}>
+            {/* Add your components here */}
+            <Sidebar />
+            <NavBarSimple testprop="testing" />
+            <NavBarForm />
+            <Content />
+        </div>
+    );
 }
 
 export default App;
