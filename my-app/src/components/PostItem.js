@@ -7,10 +7,10 @@ function PostItem(props) {
             {
                 post.map((post) => {
                     return (
-                        <div>
+                        <div key={post.image}>
                             <p>{post.title}</p>
                             <p>{post.name}</p>
-                            <img src={post.image} />
+                            <img src={post.image} alt={post.name} />
                             <p>{post.description}</p>
                         </div>
                     );
