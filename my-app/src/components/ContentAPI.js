@@ -1,34 +1,43 @@
 import React, { Component } from 'react';
 import css from "./css/Content.module.css";
-import { savedPosts } from "../posts.json";
-import PostItem from './PostItem';
+
+import PostItemAPI from './PostItemAPI';
 import Loader from './Loader';
 import axios from 'axios';
 import API_KEY from '../secrets';
 
-export class Content extends Component {
+export class ContentAPI extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoaded: false,
-            posts: []
+            posts: [],
+            savedPosts: []
         };
     }
 
     componentDidMount() {
+        this.fetchImages();
 
-        setTimeout(() => {
-            this.setState({
-                isLoaded: true,
-                posts: savedPosts
-            });
-        }, 2000);
     };
+
+    async fetchImages() {
+        const response = await axios.get(`https://pixabay.com/api/?key=${API_KEY}&q=100`);
+        console.log(response);
+        const fetchedPosts = response.data.hits;
+
+        this.setState({
+            isLoaded: true,
+            posts: fetchedPosts,
+            savedPosts: fetchedPosts
+        });
+    }
+
     handleSearch = (event) => {
         const name = event.target.value.toLowerCase();
-        const filteredPosts = savedPosts.filter((post) => {
-            return post.name.toLowerCase().includes(name);
+        const filteredPosts = this.state.savedPosts.filter((post) => {
+            return post.user.toLowerCase().includes(name);
         });
         this.setState({
             posts: filteredPosts
@@ -55,7 +64,7 @@ export class Content extends Component {
                 <div className={css.SearchResults}>
                     {
                         this.state.isLoaded ?
-                            <PostItem savedPosts={this.state.posts} />
+                            <PostItemAPI savedPosts={this.state.posts} />
                             : <Loader />
                     }
 
@@ -65,4 +74,4 @@ export class Content extends Component {
     }
 }
 
-export default Content;
+export default ContentAPI;

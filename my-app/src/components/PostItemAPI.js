@@ -1,17 +1,17 @@
 import React from 'react';
 
-function PostItem(props) {
+function PostItemAPI(props) {
     const post = props.savedPosts;
     return (
         <div>
             {
                 post.map((post) => {
                     return (
-                        <div key={post.image}>
-                            <p>{post.title}</p>
-                            <p>{post.name}</p>
-                            <img src={post.image} alt={post.name} />
-                            <p>{post.description}</p>
+                        <div key={post.id}>
+                            <p>Art Type:{post.type}</p>
+                            <p>Artist:{post.user}</p>
+                            <img src={post.webformatURL} alt={post.user} />
+                            <p>Tags:{post.tags}</p>
                         </div>
                     );
 
@@ -21,4 +21,4 @@ function PostItem(props) {
     );
 }
 
-export default PostItem;
+export default PostItemAPI;
